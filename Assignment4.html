@@ -1,0 +1,65 @@
+<html>
+<head>
+	<title>Assignment 4</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+	
+	<script type="text/javascript">
+
+
+		var myApp=angular.module("myModule",[]);
+		myApp.controller("myController",function($scope){
+			var num=[921,832,753,664,645,586,487,368,249,190];
+			$scope.num=num;
+		
+		});
+		myApp.filter('customOrdinal', function() {
+			return function(number) {
+				if(isNaN(number) || number < 1) {
+					return number;
+				} 
+				else {
+					var rev=0;
+					while (number > 0)
+					   {
+					      rev = rev * 10;
+					      rev = rev + number%10;
+					      number = parseInt(number/10);
+					   }
+					var lastDigit = rev % 10;
+
+				      if(lastDigit === 1) {
+				        return rev + 'st'
+				      } else if(lastDigit === 2) {
+				        return rev + 'nd'
+				      } else if (lastDigit === 3) {
+				        return rev + 'rd'
+				      } else if (lastDigit > 3|| lastDigit===0) {
+				        return rev + 'th'
+				      }
+
+    			}
+  			}				
+		});
+	</script>
+</head>
+<body>
+<div ng-app="myModule">
+	<div ng-controller="myController">
+		<ul>
+			<li ng-repeat="n in num">
+				{{n}}
+			</li>
+		</ul>
+
+		<ul>
+			<li ng-repeat="n in num">
+				{{n|customOrdinal}}
+			</li>
+		</ul>
+	</div>
+</div>
+
+</body>
+
+</html>
